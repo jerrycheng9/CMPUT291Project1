@@ -13,7 +13,7 @@ public class Menu extends JFrame{
 	
 
 	public Menu(){
-		setTitle("Menu");
+		setTitle("Welcome");
 		setVisible(true);
 		createWindow();
 	}
