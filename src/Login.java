@@ -1,14 +1,8 @@
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -19,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.WindowConstants;
 
 public class Login extends JFrame {
@@ -32,6 +27,8 @@ public class Login extends JFrame {
 	private JLabel passwordLabel;
 	private JPasswordField password;
 	private JButton button;
+	public String name;
+	public Statement stmt;;
 	
 	
 	public Login(){
@@ -66,7 +63,7 @@ public class Login extends JFrame {
 	                .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 	                    .addComponent(userNameLabel)
 	                    .addComponent(passwordLabel))
-	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                .addPreferredGap(ComponentPlacement.RELATED)
 	                .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
 	                    .addComponent(userName)
 	                    .addComponent(password, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
@@ -81,7 +78,7 @@ public class Login extends JFrame {
 	                .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 	                    .addComponent(userNameLabel)
 	                    .addComponent(userName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                .addPreferredGap(ComponentPlacement.RELATED)
 	                .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 	                    .addComponent(passwordLabel)
 	                    .addComponent(password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -104,14 +101,13 @@ public class Login extends JFrame {
 	    }
 	
 	private void buttonActionPerformed(ActionEvent evt){
-		String name = userName.getText();
+		name = userName.getText();
 		String pass = String.valueOf(password.getPassword());
 		
 		if("".equals(pass) || "".equals(name)){
             JOptionPane.showMessageDialog(this, "Name or password is empty!", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
 		}else{
 			login(name,pass);
-
 		}
             
 	}
@@ -123,25 +119,13 @@ public class Login extends JFrame {
             @SuppressWarnings({ "unused", "rawtypes" })
 			Class drvClass = Class.forName(m_driverName);
             Connection con = DriverManager.getConnection(m_url,name,pass);
-			Statement stmt = con.createStatement();
-	        File file = new File("doc/a2_setup_new.sql");
-	        FileInputStream fis = new FileInputStream(file);
-	    	BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-	    	System.out.print(in.read());
+            stmt  = con.createStatement();
+            setVisible(false);
+            new Menu();
         }catch(Exception e){
         	JOptionPane.showMessageDialog(this, "Invalid Username/Password", "Login Denied", JOptionPane.ERROR_MESSAGE);
         	e.printStackTrace();
         }
         
 	}
-	
-	public static void main(String args[]) {
-        /* Create and display the form */
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            	new Login().setVisible(true);
-            }
-        });
-    }
-
 }
