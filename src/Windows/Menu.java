@@ -1,8 +1,10 @@
+package Windows;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
 public class Menu extends JFrame implements ActionListener{
 	/**
 	 * 
@@ -18,7 +20,7 @@ public class Menu extends JFrame implements ActionListener{
 	
 
 	public Menu(){
-		setTitle(login.name);
+		setTitle("Welcome! "+login.name);
 		setVisible(true);
 		createWindow();
 	}
@@ -50,30 +52,6 @@ public class Menu extends JFrame implements ActionListener{
 		pack();
 	}
 	
-	public void createNewVehicleRegistration(){
-		JFrame nvr = new JFrame();
-		nvr.setTitle("New Vehicle Registration");
-		nvr.setVisible(true);
-	}
-	
-	public void createAutoTransaction(){
-		JFrame at = new JFrame();
-		at.setTitle("Auto Transaction");
-		at.setVisible(true);
-	}
-	
-	public void createDriverLicenceRegistration(){
-		
-	}
-	
-	public void createViolationRecord(){
-		
-	}
-	
-	public void createSearchEngine(){
-		
-	}
-	
 	public static void main(String args[]) {
         /* Create and display the form */
         EventQueue.invokeLater(new Runnable() {
@@ -88,19 +66,19 @@ public class Menu extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == vRegistration){
-			createNewVehicleRegistration();
+			new NewVehicleRegistration();
 		}
 		else if(e.getSource() == transaction){
-			createAutoTransaction();
+			new AutoTransaction();
 		}
 		else if(e.getSource() == lRegistration){
-			createDriverLicenceRegistration();
+			new DriverLicenceRegistration();
 		}
 		else if(e.getSource() == record){
-			createViolationRecord();
+			new ViolationRecord();
 		}
 		else if(e.getSource() == search){
-			createSearchEngine();
+			new SearchEngine();
 		}
 	}
 }
