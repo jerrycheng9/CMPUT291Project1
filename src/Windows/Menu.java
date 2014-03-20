@@ -20,13 +20,15 @@ public class Menu extends JFrame implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel panel;
 	private JButton vRegistration;
 	private JButton transaction;
 	private JButton lRegistration;
 	private JButton record;
 	private JButton search;
 	private static Login login;
+	
+	private String serial_no;
+	private String owner_id;
 	
 
 	public Menu(){
@@ -38,7 +40,7 @@ public class Menu extends JFrame implements ActionListener{
 	//create window Menu
 	public void createWindow(){
 		
-		panel = new JPanel();
+		JPanel panel = new JPanel();
 		vRegistration = new JButton("  New Vehicle Registration ");
 		transaction = new JButton("         Auto Transaction        ");
 		lRegistration = new JButton("Driver Licence Registration");
@@ -82,21 +84,23 @@ public class Menu extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String nvrgetserial = nvrserialtext.getText();
+				serial_no = nvrserialtext.getText();
 				String nvrgetmaker = nvrmakertext.getText();
 				String nvrgetmodel = nvrmodeltext.getText();
 				String nvrgetyear = nvryeartext.getText();
 				String nvrgetcolor = nvrcolortext.getText();
 				String nvrgetid = nvridtext.getText();
-				if("".equals(nvrgetid) || "".equals(nvrgetcolor) || "".equals(nvrgetyear) || "".equals(nvrgetmodel) || "".equals(nvrgetmaker) || "".equals(nvrgetserial)){
+				if("".equals(nvrgetid) || "".equals(nvrgetcolor) || "".equals(nvrgetyear) || "".equals(nvrgetmodel) || "".equals(nvrgetmaker) || "".equals(serial_no)){
 					 JOptionPane.showMessageDialog(nvr, "Some information missed", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
 				}else{
-					SearchEngine();
+					AddOwner();
+					nvr.setVisible(false);
 				}
 			}
 		});
 		nvr.setTitle("New Vehicle Registration");
 		nvr.setVisible(true);
+		nvr.add(nvrpanel);
 		nvrpanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		GroupLayout nvrlayout = new GroupLayout(nvrpanel);
 		nvrpanel.setLayout(nvrlayout);
@@ -113,11 +117,11 @@ public class Menu extends JFrame implements ActionListener{
 			            .addPreferredGap(ComponentPlacement.RELATED)
 			            .addGroup(nvrlayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
 			                    .addComponent(nvrserialtext,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-			                    .addComponent(nvrmakertext,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-			                    .addComponent(nvrmodeltext,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-			                    .addComponent(nvryeartext,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-			                    .addComponent(nvrcolortext,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-			                    .addComponent(nvridtext,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+			                    .addComponent(nvrmakertext)
+			                    .addComponent(nvrmodeltext)
+			                    .addComponent(nvryeartext)
+			                    .addComponent(nvrcolortext)
+			                    .addComponent(nvridtext))
 			            .addGap(18, 18, 18)
 			            .addComponent(nvradd)
 			            .addGap(0, 65, Short.MAX_VALUE))
@@ -152,17 +156,212 @@ public class Menu extends JFrame implements ActionListener{
 	            				.addComponent(nvradd))
 	            				.addContainerGap(15, Short.MAX_VALUE))
 	        );
-        GroupLayout nvrreallayout = new GroupLayout(nvr.getContentPane());
-        nvr.getContentPane().setLayout(nvrreallayout);
-        nvrreallayout.setHorizontalGroup(
-            nvrreallayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(nvrpanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        nvrreallayout.setVerticalGroup(
-            nvrreallayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(nvrpanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        );
         nvr.pack();
+	}
+	
+	public void AddOwner(){
+		final JFrame ao = new JFrame();
+		ao.setTitle("Primar Owner");
+		ao.setVisible(true);
+		JPanel aopanel = new JPanel();
+		JLabel po = new JLabel("Primary owner id:");
+		final JTextField pot = new JTextField();
+		JButton poadd = new JButton("Add");
+		poadd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				owner_id = pot.getText();
+				if ("".equals(owner_id)){
+					JOptionPane.showMessageDialog(ao, "Information Missed", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
+				}else{
+					AddSOwner();
+					ao.setVisible(false);
+				}
+			}
+		});
+		ao.add(aopanel);
+		aopanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		GroupLayout aolayout = new GroupLayout(aopanel);
+		aopanel.setLayout(aolayout);
+		aolayout.setHorizontalGroup(
+				aolayout.createSequentialGroup()
+					.addComponent(po)
+					.addGap(18)
+					.addComponent(pot,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(poadd)
+					.addGap(0, 65, Short.MAX_VALUE)
+		);
+		aolayout.setVerticalGroup(
+				aolayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+					.addComponent(po)
+					.addComponent(pot)
+					.addComponent(poadd)
+		);
+		ao.pack();
+	}
+	
+	public void AddSOwner(){
+		final JFrame aso = new JFrame();
+		aso.setTitle("Secondary Owner");
+		aso.setVisible(true);
+		JPanel apipanel = new JPanel();
+		JLabel so = new JLabel("Secondary owner id:");
+		JLabel note = new JLabel("Note: Just close window if doesnt have other secondary owner");
+		final JTextField sot = new JTextField();
+		JButton soadd = new JButton("Add");
+		soadd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String sowner_id = sot.getText();
+				if ("".equals(sowner_id)){
+					JOptionPane.showMessageDialog(aso, "Information Missed", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
+				}else{
+					aso.setVisible(false);
+					AddSOwner();
+				}
+			}
+		});
+		aso.add(apipanel);
+		apipanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		GroupLayout apilayout = new GroupLayout(apipanel);
+		apipanel.setLayout(apilayout);
+		apilayout.setHorizontalGroup(
+				apilayout.createSequentialGroup()
+					.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.CENTER)
+							.addComponent(so)
+							.addComponent(note))
+					.addGap(18)
+					.addComponent(sot,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(soadd)
+					.addGap(0, 65, Short.MAX_VALUE)
+		);
+		apilayout.setVerticalGroup(
+				apilayout.createSequentialGroup()
+					.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+							.addComponent(so)
+							.addComponent(sot)
+							.addComponent(soadd))
+					.addComponent(note)
+		);
+		aso.pack();
+	}
+	
+	public void AddPersonInfo(){
+		final JFrame api = new JFrame();
+		JPanel apipanel = new JPanel();
+		JLabel apiname = new JLabel("Name");
+		JLabel apihei = new JLabel("Height");
+		JLabel apiwei = new JLabel("Weight");
+		JLabel apieye = new JLabel("Eyecolor");
+		JLabel apihair = new JLabel("haircolor");
+		JLabel apiaddr = new JLabel("Address");
+		JLabel apigen = new JLabel("Gender");
+		JLabel apibir = new JLabel("Birthday");
+		final JTextField apinamet = new JTextField();
+		final JTextField apiheit = new JTextField();
+		final JTextField apiweit = new JTextField();
+		final JTextField apieyet = new JTextField();
+		final JTextField apihairt = new JTextField();
+		final JTextField apiaddrt = new JTextField();
+		final JTextField apigent = new JTextField();
+		final JTextField apibirt = new JTextField();
+		JButton apiadd = new JButton();
+		apiadd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String apigetname = apinamet.getText();
+				String apigethei = apiheit.getText();
+				String apigetwei = apiweit.getText();
+				String apigeteye = apieyet.getText();
+				String apigethair = apihairt.getText();
+				String apigetaddr = apiaddrt.getText();
+				String apigetgen = apigent.getText();
+				String apigetbir = apibirt.getText();
+				if("".equals(apigetaddr) || "".equals(apigetbir) || "".equals(apigeteye) || "".equals(apigetgen) || "".equals(apigethair) || "".equals(apigetwei) || "".equals(apigetname) || "".equals(apigethei)){
+					 JOptionPane.showMessageDialog(api, "Some information missed", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		api.setTitle("Add Person Infomation");
+		api.setVisible(true);
+		api.add(apipanel);
+		apipanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		GroupLayout apilayout = new GroupLayout(apipanel);
+		apipanel.setLayout(apilayout);
+		apilayout.setHorizontalGroup(
+				apilayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	    		.addGroup(apilayout.createSequentialGroup()
+	    				.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	    						.addComponent(apiname)
+			                    .addComponent(apihei)
+			                    .addComponent(apiwei)
+			                    .addComponent(apieye)
+			                    .addComponent(apihair)
+			                    .addComponent(apiaddr)
+			                    .addComponent(apigen)
+			                    .addComponent(apibir))
+			            .addPreferredGap(ComponentPlacement.RELATED)
+			            .addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+			                    .addComponent(apinamet,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+			                    .addComponent(apiheit)
+			                    .addComponent(apiweit)
+			                    .addComponent(apieyet)
+			                    .addComponent(apihairt)
+			                    .addComponent(apiaddrt)
+			                    .addComponent(apigent)
+			                    .addComponent(apibirt))
+			            .addGap(18, 18, 18)
+			            .addComponent(apiadd)
+			            .addGap(0, 65, Short.MAX_VALUE))
+	    );
+		apilayout.setVerticalGroup(
+				apilayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(apilayout.createSequentialGroup()
+	            		.addContainerGap()
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apiname)
+	            				.addComponent(apinamet))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apihei)
+	            				.addComponent(apiheit))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apiwei)
+	            				.addComponent(apiweit))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apieye)
+	            				.addComponent(apieyet))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apihair)
+	            				.addComponent(apihairt))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apiaddr)
+	            				.addComponent(apiaddrt))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apigen)
+	            				.addComponent(apigent))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(apibir)
+	            				.addComponent(apibirt)
+	            				.addComponent(apiadd))
+	            				.addContainerGap(15, Short.MAX_VALUE))
+	        );
+		api.pack();
+		
 	}
 	
 	public void AutoTransaction(){

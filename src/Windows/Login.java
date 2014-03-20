@@ -31,7 +31,7 @@ public class Login extends JFrame {
 	private JPasswordField password;
 	private JButton button;
 	public String name;
-	public Statement stmt;;
+	public Statement stmt;
 	
 	
 	public Login(){
@@ -49,6 +49,8 @@ public class Login extends JFrame {
 		button = new JButton("Log in");
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		add(mainPanel);
 		
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		
@@ -88,18 +90,6 @@ public class Login extends JFrame {
 	                    .addComponent(button))
 	                .addContainerGap(15, Short.MAX_VALUE))
 	        );
-
-	        GroupLayout layout = new GroupLayout(getContentPane());
-	        getContentPane().setLayout(layout);
-	        layout.setHorizontalGroup(
-	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	            .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	        );
-	        layout.setVerticalGroup(
-	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	            .addComponent(mainPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        );
-
 	        pack();
 	    }
 	
