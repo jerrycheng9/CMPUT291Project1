@@ -1,6 +1,7 @@
 package Windows;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.SecondaryLoop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -378,14 +379,28 @@ public class Menu extends JFrame implements ActionListener{
 	}
 	
 	public void AutoTransaction(){
-		JFrame at = new JFrame();
+		final JFrame at = new JFrame();
 		at.setTitle("Auto Transaction");
 		JPanel atpanel = new JPanel();
 		JLabel ats = new JLabel("Seller");
 		JLabel atb = new JLabel("Buyer");
-		JTextField atst = new JTextField();
-		JTextField atbt = new JTextField();
+		final JTextField atst = new JTextField();
+		final JTextField atbt = new JTextField();
 		JButton atadd = new JButton();
+		atadd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String atgets = atst.getText();
+				String atgetb = atbt.getText();
+				if ("".equals(atgetb) || "".equals(atgets)){
+					 JOptionPane.showMessageDialog(at, "Some information missed", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
+				}else{
+					secondarybs();
+				}
+			}
+		});
 		JLabel atnote = new JLabel("Primary Seller and Buyer");
 		GroupLayout atlayout = new GroupLayout(atpanel);
 		atpanel.setLayout(atlayout);
@@ -425,15 +440,178 @@ public class Menu extends JFrame implements ActionListener{
 		at.setVisible(true);
 	}
 	
+	public void secondarybs(){
+		final JFrame bs = new JFrame();
+		bs.setTitle("Secondary Buyer/Seller Registraion");
+		JPanel bspanel = new JPanel();
+		JLabel bss = new JLabel("Seller");
+		JLabel bsb = new JLabel("Buyer");
+		final JTextField bsst = new JTextField();
+		final JTextField bsbt = new JTextField();
+		JButton bsadd = new JButton();
+		bsadd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String atgets = bsst.getText();
+				String atgetb = bsbt.getText();
+				if ("".equals(atgetb) || "".equals(atgets)){
+					 JOptionPane.showMessageDialog(bs, "Some information missed", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
+				}else{
+					secondarybs();
+				}
+			}
+		});
+		JLabel bsnote = new JLabel("Seondary Buyer/Seller(Optional)");
+		GroupLayout bslayout = new GroupLayout(bspanel);
+		bspanel.setLayout(bslayout);
+		bslayout.setHorizontalGroup(
+				bslayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(bslayout.createSequentialGroup()
+	                .addGroup(bslayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                    .addComponent(bss)
+	                    .addComponent(bsb))
+	                .addPreferredGap(ComponentPlacement.RELATED)
+	                .addGroup(bslayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+	                    .addComponent(bsst)
+	                    .addComponent(bsbt, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+	                .addGap(18, 18, 18)
+	                .addComponent(bsadd)
+	                .addGap(0, 65, Short.MAX_VALUE))
+	        );
+		bslayout.setVerticalGroup(
+				bslayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(bslayout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(bslayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                    .addComponent(bss)
+	                    .addComponent(bsst, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                .addPreferredGap(ComponentPlacement.RELATED)
+	                .addGroup(bslayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                    .addComponent(bsb)
+	                    .addComponent(bsbt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(bsadd))
+	                .addContainerGap(15, Short.MAX_VALUE))
+	        );
+		JPanel bspanel2 = new JPanel();
+		bspanel2.add(bsnote);
+		bs.add(bspanel,BorderLayout.NORTH);
+		bs.add(bspanel2,BorderLayout.CENTER);
+		bs.pack();
+		bs.setVisible(true);
+	}
+	
 	public void DriverLicenceRegistration(){
 		JFrame dlr = new JFrame();
 		dlr.setTitle("Driver Licence Registration");
+		JPanel dlrpanel = new JPanel();
+		JLabel dlrsin = new JLabel("Sin");
+		JLabel dlrlicence = new JLabel("Licence_no");
+		JLabel dlrclass = new JLabel();
+		
 		dlr.setVisible(true);
 	}
 	
 	public void ViolationRecord(){
 		JFrame vr = new JFrame();
 		vr.setTitle("Violation Record");
+		JPanel vrpanel = new JPanel();
+		JLabel vrtno = new JLabel("Ticket_no");
+		JLabel vrvno = new JLabel("Violator_no");
+		JLabel vrveno = new JLabel("Vehicle_no");
+		JLabel vrono = new JLabel("Office_no");
+		JLabel vrty = new JLabel("Type");
+		JLabel vrda =new JLabel("Date");
+		JLabel vrp = new JLabel("Place");
+		JLabel vrd = new JLabel("Description");
+		final JTextField vrtnot = new JTextField();
+		final JTextField vrvnot = new JTextField();
+		final JTextField vrvenot = new JTextField();
+		final JTextField vronot = new JTextField();
+		final JTextField vrtyt = new JTextField();
+		final JTextField vrdat = new JTextField();
+		final JTextField vrpt = new JTextField();
+		final JTextField vrdt = new JTextField();
+		JButton vradd = new JButton();
+		JButton vrca = new JButton();
+		GroupLayout vrlayout = new GroupLayout(vrpanel);
+		vrpanel.setLayout(vrlayout);
+	    vrlayout.setHorizontalGroup(
+	    		vrlayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	    		.addGroup(vrlayout.createSequentialGroup()
+	    				.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	    						.addComponent(vrtno)
+			                    .addComponent(vrvno)
+			                    .addComponent(vrveno)
+			                    .addComponent(vrono)
+			                    .addComponent(vrty)
+			                    .addComponent(vrp)
+			                    .addComponent(vrd))
+			            .addPreferredGap(ComponentPlacement.RELATED)
+			            .addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+			                    .addComponent(vrtnot,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+			                    .addComponent(vrvnot)
+			                    .addComponent(vrvenot)
+			                    .addComponent(vronot)
+			                    .addComponent(vrtyt)
+			                    .addComponent(vrpt)
+			                    .addComponent(vrdt))
+			            .addGap(18, 18, 18)
+			            .addComponent(vradd)
+			            .addGap(0, 65, Short.MAX_VALUE))
+	    );
+	    vrlayout.setVerticalGroup(
+	            vrlayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(vrlayout.createSequentialGroup()
+	            		.addContainerGap()
+	            		.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(vrtno)
+	            				.addComponent(vrtnot))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(vrvno)
+	            				.addComponent(vrvnot))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(vrveno)
+	            				.addComponent(vrvenot))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(vrono)
+	            				.addComponent(vronot))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(vrty)
+	            				.addComponent(vrtyt))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(vrp)
+	            				.addComponent(vrpt))
+	            		.addPreferredGap(ComponentPlacement.RELATED)
+	            		.addGroup(vrlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	            				.addComponent(vrdt)
+	            				.addComponent(vrdt)
+	            				.addComponent(vradd))
+	            				.addContainerGap(15, Short.MAX_VALUE))
+	        );
+	    JPanel vrpanel2 = new JPanel();
+		GroupLayout vrlayout2 = new GroupLayout(vrpanel2);
+		vrpanel2.setLayout(vrlayout2);
+		vrlayout2.setHorizontalGroup(
+				vrlayout2.createSequentialGroup()
+					.addComponent(vrda)
+					.addGap(18)
+					.addComponent(vrdat,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+					.addComponent(vrca)
+		);
+		vrlayout2.setVerticalGroup(
+				vrlayout2.createSequentialGroup()
+					.addGroup(vrlayout2.createParallelGroup(GroupLayout.Alignment.LEADING)
+							.addComponent(vrda)
+							.addComponent(vrdat)
+							.addComponent(vrca))
+		);
 		vr.setVisible(true);
 	}
 	
