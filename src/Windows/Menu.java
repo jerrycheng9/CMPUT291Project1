@@ -387,6 +387,41 @@ public class Menu extends JFrame implements ActionListener{
 		JTextField atbt = new JTextField();
 		JButton atadd = new JButton();
 		JLabel atnote = new JLabel("Primary Seller and Buyer");
+		GroupLayout atlayout = new GroupLayout(atpanel);
+		atpanel.setLayout(atlayout);
+		atlayout.setHorizontalGroup(
+				atlayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(atlayout.createSequentialGroup()
+	                .addGroup(atlayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                    .addComponent(ats)
+	                    .addComponent(atb))
+	                .addPreferredGap(ComponentPlacement.RELATED)
+	                .addGroup(atlayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+	                    .addComponent(atst)
+	                    .addComponent(atbt, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+	                .addGap(18, 18, 18)
+	                .addComponent(atadd)
+	                .addGap(0, 65, Short.MAX_VALUE))
+	        );
+		atlayout.setVerticalGroup(
+				atlayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(atlayout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(atlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                    .addComponent(ats)
+	                    .addComponent(atst, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                .addPreferredGap(ComponentPlacement.RELATED)
+	                .addGroup(atlayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                    .addComponent(atb)
+	                    .addComponent(atbt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(atadd))
+	                .addContainerGap(15, Short.MAX_VALUE))
+	        );
+		JPanel atpanel2 = new JPanel();
+		atpanel2.add(atnote);
+		at.add(atpanel,BorderLayout.NORTH);
+		at.add(atpanel2,BorderLayout.CENTER);
+		at.pack();
 		at.setVisible(true);
 	}
 	
