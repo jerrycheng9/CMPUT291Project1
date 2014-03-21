@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
-
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -17,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.WindowConstants;
+
 
 
 public class Login extends JFrame {
@@ -31,7 +30,7 @@ public class Login extends JFrame {
 	private JPasswordField password;
 	private JButton button;
 	public String name;
-	public Statement stmt;
+	public Connection con;
 	
 	
 	public Login(){
@@ -111,8 +110,7 @@ public class Login extends JFrame {
         try{
             @SuppressWarnings({ "unused", "rawtypes" })
 			Class drvClass = Class.forName(m_driverName);
-            Connection con = DriverManager.getConnection(m_url,name,pass);
-            stmt  = con.createStatement();
+            con = DriverManager.getConnection(m_url,name,pass);
             setVisible(false);
             new Menu();
         }catch(Exception e){

@@ -1,7 +1,10 @@
 package Windows;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -15,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.WindowConstants;
 
+import Controller.DataBase;
+
 public class Menu extends JFrame implements ActionListener{
 	/**
 	 * 
@@ -26,12 +31,21 @@ public class Menu extends JFrame implements ActionListener{
 	private JButton record;
 	private JButton search;
 	private static Login login;
+	private static DataBase db;
+	private Statement stmt;
 	
 	private String serial_no;
 	private String owner_id;
 	
 
 	public Menu(){
+		db = new DataBase();
+		try {
+			stmt = login.con.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setTitle("Welcome! "+login.name);
 		setVisible(true);
 		createWindow();
@@ -92,14 +106,13 @@ public class Menu extends JFrame implements ActionListener{
 				String nvrgetid = nvridtext.getText();
 				if("".equals(nvrgetid) || "".equals(nvrgetcolor) || "".equals(nvrgetyear) || "".equals(nvrgetmodel) || "".equals(nvrgetmaker) || "".equals(serial_no)){
 					 JOptionPane.showMessageDialog(nvr, "Some information missed", "Incorrect Input", JOptionPane.ERROR_MESSAGE);
-				}else{
+				} else {
 					AddOwner();
 					nvr.setVisible(false);
 				}
 			}
 		});
 		nvr.setTitle("New Vehicle Registration");
-		nvr.setVisible(true);
 		nvr.add(nvrpanel);
 		nvrpanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		GroupLayout nvrlayout = new GroupLayout(nvrpanel);
@@ -157,6 +170,7 @@ public class Menu extends JFrame implements ActionListener{
 	            				.addContainerGap(15, Short.MAX_VALUE))
 	        );
         nvr.pack();
+        nvr.setVisible(true);
 	}
 	
 	public void AddOwner(){
@@ -209,7 +223,7 @@ public class Menu extends JFrame implements ActionListener{
 		aso.setVisible(true);
 		JPanel apipanel = new JPanel();
 		JLabel so = new JLabel("Secondary owner id:");
-		JLabel note = new JLabel("Note: Just close window if doesnt have other secondary owner");
+		JLabel note = new JLabel("Note: Just close window if doesnt have secondary owner");
 		final JTextField sot = new JTextField();
 		JButton soadd = new JButton("Add");
 		soadd.addActionListener(new ActionListener() {
@@ -226,15 +240,11 @@ public class Menu extends JFrame implements ActionListener{
 				}
 			}
 		});
-		aso.add(apipanel);
-		apipanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 		GroupLayout apilayout = new GroupLayout(apipanel);
 		apipanel.setLayout(apilayout);
 		apilayout.setHorizontalGroup(
 				apilayout.createSequentialGroup()
-					.addGroup(apilayout.createParallelGroup(GroupLayout.Alignment.CENTER)
-							.addComponent(so)
-							.addComponent(note))
+					.addComponent(so)
 					.addGap(18)
 					.addComponent(sot,GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
 					.addGap(18)
@@ -247,8 +257,11 @@ public class Menu extends JFrame implements ActionListener{
 							.addComponent(so)
 							.addComponent(sot)
 							.addComponent(soadd))
-					.addComponent(note)
 		);
+		JPanel apipanel2 = new JPanel();
+		apipanel2.add(note);
+		aso.add(apipanel,BorderLayout.NORTH);
+		aso.add(apipanel2,BorderLayout.SOUTH);
 		aso.pack();
 	}
 	
@@ -271,7 +284,7 @@ public class Menu extends JFrame implements ActionListener{
 		final JTextField apiaddrt = new JTextField();
 		final JTextField apigent = new JTextField();
 		final JTextField apibirt = new JTextField();
-		JButton apiadd = new JButton();
+		JButton apiadd = new JButton("Add");
 		apiadd.addActionListener(new ActionListener() {
 			
 			@Override
@@ -367,6 +380,13 @@ public class Menu extends JFrame implements ActionListener{
 	public void AutoTransaction(){
 		JFrame at = new JFrame();
 		at.setTitle("Auto Transaction");
+		JPanel atpanel = new JPanel();
+		JLabel ats = new JLabel("Seller");
+		JLabel atb = new JLabel("Buyer");
+		JTextField atst = new JTextField();
+		JTextField atbt = new JTextField();
+		JButton atadd = new JButton();
+		JLabel atnote = new JLabel("Primary Seller and Buyer");
 		at.setVisible(true);
 	}
 	
